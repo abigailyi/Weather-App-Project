@@ -1,4 +1,3 @@
-import "./style.css";
 //Updates date and time to current
 function displayLocalTime() {
   let today = new Date();
