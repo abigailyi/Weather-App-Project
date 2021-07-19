@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <title>Weather App - Project</title>
+  </head>
+  <body>
+    <div class="primary">
+      <form id="city-search">
+        <input
+          type="text"
+          name="search"
+          id="city-input"
+          class="search"
+          placeholder="Enter city name"
+        />
+        <input type="submit" value="Search" class="btn btn-sm search-btn" />
+        <button class="btn btn-sm local-btn" id="currentLocation">Local</button>
+      </form>
+
+      <div class="currentinfo">
+        <div class="row todayRow">
+          <div class="col">
+            <div class="today">
+              <span id="todayIcon">
+                <img src="image/01-clear.png" class="todayIcon"
+              /></span>
+              <span id="main-temp-cont">
+                <h4><span id="main-temp">80</span> °F&nbsp;&nbsp;</h4></span
+              >
+              <p id="high-low">H 96° | L 69°</p>
+              <p id="feels-like">
+                Feels like: <span id="feels-temp">83</span>°
+              </p>
+            </div>
+          </div>
+          <div class="col today-data">
+            <h1 id="city">Santa Monica</h1>
+            <h2 class="weather-type" id="main-desc">Clear Sky</h2>
+            <br />
+            <p id="currentTime">Tuesday, July 13th 2021, 2:16</p>
+            <small id="details">Humidity: 71% <br />Wind: 7 mph</small>
+
+            <br />
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-secondary btn-info">
+                <input
+                  type="radio"
+                  name="convert"
+                  id="btnC"
+                  autocomplete="off"
+                  data-toggle="buttons"
+                />
+                °C
+              </label>
+              <label class="btn btn-secondary btn-info active">
+                <input
+                  type="radio"
+                  name="convert"
+                  id="btnF"
+                  autocomplete="off"
+                  data-toggle="buttons"
+                  checked
+                />
+                °F
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3>This week's forecast:</h3>
+      <div class="row weekForecast">
+        <div class="col col-week">
+          <p class="day">Mon</p>
+          <div class="week">
+            <img src="image/03-rain.png" class="week-icon" />
+          </div>
+          <p class="day temp">54 °F</p>
+        </div>
+        <div class="col col-week">
+          <p class="day">Tues</p>
+          <div class="week">
+            <img src="image/05-atmosphere.png" class="week-icon" />
+          </div>
+          <p class="day temp">60 °F</p>
+        </div>
+        <div class="col col-week">
+          <p class="day">Wed</p>
+          <div class="week">
+            <img src="image/02-clouds.png" class="week-icon" />
+          </div>
+          <p class="day temp">75 °F</p>
+        </div>
+        <div class="col col-week">
+          <p class="day">Thu</p>
+          <div class="week">
+            <img src="image/01-clear.png" class="week-icon" />
+          </div>
+          <p class="day temp">82 °F</p>
+        </div>
+        <div class="col col-week">
+          <p class="day">Fri</p>
+          <div class="week">
+            <img src="image/01-clear.png" class="week-icon" />
+          </div>
+          <p class="day temp">85 °F</p>
+        </div>
+        <div class="col col-week">
+          <p class="day">Sat</p>
+          <div class="week">
+            <img src="image/01-clear.png" class="week-icon" />
+          </div>
+          <p class="day temp">82 °F</p>
+        </div>
+      </div>
+      <br />
+      <br />
+    </div>
+    <script src="src/index.js"></script>
+    <footer>SheCodes Plus Workshop Project</footer>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  margin: 15px;
+  background-color: #fbfbfb;
+  color: rgb(49, 49, 49);
+}
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 58px;
+  margin: 0;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 38px;
+  margin: 0;
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  margin: 50px 0px 20px 0px;
+  text-align: center;
+}
+
+h4 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 38px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+form {
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+}
+
+div.col .row .currentinfo {
+  padding: 0px;
+}
+
+input {
+  height: 30px;
+  margin: 3px;
+}
+
+label {
+  color: rgb(49, 49, 49);
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  font-size: 18px;
+}
+
+footer {
+  text-align: center;
+  font-size: 15px;
+}
+
+.primary {
+  max-width: 800px;
+  border-radius: 20px;
+  padding: 30px;
+  background-color: #fbfbfb;
+  margin: 0 auto;
+}
+
+.search {
+  border: 2px solid rgb(214, 212, 212);
+  border-radius: 5px;
+  width: 250px;
+  padding-left: 10px;
+}
+
+.search-btn {
+  background-color: rgb(49, 210, 242);
+  border: rgb(49, 210, 242);
+  font-size: 12px;
+  margin: 2px;
+  color: black;
+}
+
+.local-btn {
+  background-color: rgb(49, 210, 242);
+  border: 2px solid rgb(49, 210, 242);
+  font-size: 12px;
+  margin: 2px;
+  color: black;
+}
+
+.weather-type {
+  text-transform: capitalize;
+}
+
+.todayIcon {
+  display: inline-block;
+  width: 200px;
+  margin: 0 auto;
+  align-content: center;
+  padding-left: 50px;
+  padding-top: 20px;
+}
+
+#todayIcon {
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  align-content: center;
+  width: 120px;
+}
+
+.btn-group {
+  margin-top: 25px;
+}
+
+.row-today {
+  margin: 0 auto;
+}
+
+.today {
+  display: inline-flexbox;
+  width: 250px;
+  height: 300px;
+  align-content: center;
+}
+
+.today-data {
+  display: inline-flexbox;
+  align-content: left;
+  margin: 0px 100px 0px 0px;
+}
+
+.week {
+  width: 100px;
+  height: 100px;
+  padding: 25px;
+  margin: 0 auto;
+}
+
+.week-icon {
+  padding-right: 0px;
+  width: 50px;
+  margin: 0 auto;
+}
+
+.day {
+  text-align: center;
+}
+
+.temp {
+  font-weight: bold;
+}
+
+#main-temp {
+  text-align: center;
+}
+
+#high-low {
+  text-align: center;
+}
+
+#feels-like {
+  text-align: center;
+}
+
+[type="radio"] {
+  display: none;
+}
