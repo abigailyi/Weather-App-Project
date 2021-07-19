@@ -105,7 +105,7 @@ function displayForecastToday(response) {
 function citySearch(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input");
-  let apiKey = "1e900e7a532291ddab0851fd797f7887";
+  let apiKey = OW_API_KEY;
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&units=imperial&appid=${apiKey}`;
   axios.get(weatherUrl).then(displayForecastToday);
   document.querySelector("#city-input").value = "";
@@ -115,7 +115,7 @@ function retrievePosition(position) {
   console.log(position);
   let lon = position.coords.longitude;
   let lat = position.coords.latitude;
-  let apiKey = "1e900e7a532291ddab0851fd797f7887";
+  let apiKey = OW_API_KEY;
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
   axios.get(weatherUrl).then(displayForecastToday);
   document.querySelector("#city-input").value = "";
