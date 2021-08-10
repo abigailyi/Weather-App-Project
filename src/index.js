@@ -48,6 +48,31 @@ function displayLocalTime() {
 }
 displayLocalTime();
 
+// Repeating individual forecast days of the week
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tues"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-2">
+        <div class="weather-forecast-date">${day}</div>
+        <img class="weather-icons" src="image/03-rain.png" alt="" width="40" />
+        <div class="weather-forecast-temperatures">
+          <span class="weather-forecast-temperature-max"> 18° </span>
+          <span class="weather-forecast-temperature-min"> 12° </span>
+        </div>
+      </div>
+    `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 // Function to call weather data from API and update HTML elements
 function displayForecastToday(response) {
   console.log(response.data);
@@ -172,3 +197,4 @@ let city = "Los Angeles";
 let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
 axios.get(weatherUrl).then(displayForecastToday);
+displayForecast();
