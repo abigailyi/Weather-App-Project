@@ -141,6 +141,10 @@ footer {
   margin: 0 auto;
 }
 
+.current-temp {
+  text-align: center;
+}
+
 .week-icon {
   padding-right: 0px;
   width: 50px;
@@ -151,12 +155,20 @@ footer {
   text-align: center;
 }
 
+.today-data {
+  padding-top: 50px;
+}
+
 .temp {
   font-weight: bold;
 }
 
 #main-temp {
+  font-family: "Montserrat", sans-serif;
+  font-size: 38px;
+  margin: 0 auto;
   text-align: center;
+  font-weight: 500;
 }
 
 #high-low {
@@ -169,4 +181,22 @@ footer {
 
 [type="radio"] {
   display: none;
+}
+
+.units {
+  font-size: 16px;
+  text-transform: uppercase;
+  vertical-align: super;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.current-temp .active {
+  color: rgb(49, 49, 49);
+  cursor: default;
+  text-decoration: none;
+}
+
+.current-temp .active:hover {
+  text-decoration: none;
 }

@@ -41,46 +41,25 @@
               <span id="todayIcon">
                 <img src="image/01-clear.png" class="todayIcon"
               /></span>
-              <span id="main-temp-cont">
-                <h4><span id="main-temp">80</span> °F&nbsp;&nbsp;</h4></span
-              >
-              <p id="high-low">H 96° | L 69°</p>
-              <p id="feels-like">
-                Feels like: <span id="feels-temp">83</span>°
-              </p>
+              <div class="current-temp">
+                <strong id="main-temp"></strong>
+                <span class="units"
+                  ><a href="#" id="celsius-link" class="active">°C</a> |
+                  <a href="#" id="fahrenheit-link">°F</a></span
+                >
+              </div>
+              <p id="high-low"></p>
+              <p id="feels-like">Feels like: <span id="feels-temp"></span>°</p>
             </div>
           </div>
           <div class="col today-data">
-            <h1 id="city">Santa Monica</h1>
-            <h2 class="weather-type" id="main-desc">Clear Sky</h2>
+            <h1 id="city"></h1>
+            <h2 class="weather-type" id="main-desc"></h2>
             <br />
             <p id="currentTime">Tuesday, July 13th 2021, 2:16</p>
-            <small id="details">Humidity: 71% <br />Wind: 7 mph</small>
+            <small id="details"></small>
 
             <br />
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-secondary btn-info">
-                <input
-                  type="radio"
-                  name="convert"
-                  id="btnC"
-                  autocomplete="off"
-                  data-toggle="buttons"
-                />
-                °C
-              </label>
-              <label class="btn btn-secondary btn-info active">
-                <input
-                  type="radio"
-                  name="convert"
-                  id="btnF"
-                  autocomplete="off"
-                  data-toggle="buttons"
-                  checked
-                />
-                °F
-              </label>
-            </div>
           </div>
         </div>
       </div>
