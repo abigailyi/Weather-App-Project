@@ -5,6 +5,8 @@ const setMode = (mode) => (document.documentElement.className = mode);
 let now = new Date();
 
 function displayCurrentTime() {
+  console.log(now);
+
   let day = now.getDay();
   let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
   let dates = now.getDate();
@@ -23,6 +25,7 @@ function displayCurrentTime() {
     "Nov",
     "Dec",
   ];
+
   let minute = now.getMinutes();
   let hour = now.getHours();
   let pmtime = hour - 12;
@@ -44,41 +47,49 @@ function displayCurrentTime() {
 }
 displayCurrentTime(now);
 
-// Display temperature triggered by search event
-function replaceLocation(event) {
+let form = document.querySelector("#searchForm");
+form.addEventListener("submit", handleSubmit);
+
+function searchCity(city) {
+  let key = "1e900e7a532291ddab0851fd797f7887";
+  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${key}`;
+  axios.get(weatherUrl).then(displayTemp);
+
+  document.getElementById("searchInput").value = ``;
+
+  clickCelsius.classList.remove("active");
+  clickFahrenheit.classList.add("active");
+}
+
+function handleSubmit(event) {
   event.preventDefault();
-  let searchInput = document.querySelector(".search-box");
-  let key = "1e900e7a532291ddab0851fd797f7887";
-  let unit = "imperial";
-  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=${unit}&appid=${key}`;
-  axios.get(weatherUrl).then(displayTemp);
+  let city = document.querySelector("#searchInput").value;
+  searchCity(city);
+}
 
-  document.getElementById("searchForm").value = ``;
+let searchForm = document.querySelector("#searchForm");
+searchForm.addEventListener("submit", handleSubmit);
+
+function getLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(searchLocation);
+}
+
+function searchLocation(position) {
+  console.log(position.coords);
+  let apiKey = `1e900e7a532291ddab0851fd797f7887`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=imperial`;
+
+  axios.get(apiUrl).then(displayTemp);
+
+  document.getElementById("searchInput").value = ``;
 
   clickCelsius.classList.remove("active");
   clickFahrenheit.classList.add("active");
 }
 
-let clickSearch = document.querySelector("#search-button");
-clickSearch.addEventListener("click", replaceLocation);
-
-// Fetch GPS position for current location temperatures
-function displayCurrentLocation(position) {
-  console.log(position);
-  let lon = position.coords.longitude;
-  let lat = position.coords.latitude;
-  let key = "1e900e7a532291ddab0851fd797f7887";
-  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=imperial`;
-  axios.get(weatherUrl).then(displayTemp);
-  clickCelsius.classList.remove("active");
-  clickFahrenheit.classList.add("active");
-}
-
-function getLocation() {
-  navigator.geolocation.getCurrentPosition(displayCurrentLocation);
-}
-let clickLocation = document.querySelector("#search-button-location");
-clickLocation.addEventListener("click", getLocation);
+let currentLocationBtn = document.querySelector("#location-button");
+currentLocationBtn.addEventListener("click", getLocation);
 
 // Display current temperature and weather stats
 function displayTemp(response) {
@@ -263,4 +274,4 @@ let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appi
 
 axios.get(weatherUrl).then(displayTemp);
 
-replaceLocation("Los Angeles");
+searchCity("Los Angeles");

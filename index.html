@@ -33,7 +33,7 @@
   <body>
     <div class="container">
       <div class="primary" id="main-container">
-        <div class="top-row col-1 float-end" id="top-row">
+        <div class="top-row float-end" id="top-row">
           <button
             class="mode-btn dark float-end"
             type="button"
@@ -53,18 +53,18 @@
         </div>
         <div class="search-row col-auto">
           <span class="float-left" id="search-row">
-            <form class="search-form">
+            <form class="search-form" id="searchForm">
               <input
                 type="text"
                 name="search"
                 placeholder="Search for a city"
                 class="search-box"
-                id="searchForm"
+                id="searchInput"
               />
               <button type="submit" id="search-button" class="btn btn-sm">
                 Search <i class="fas fa-search"></i>
               </button>
-              <button id="search-button-location" class="btn btn-sm">
+              <button id="location-button" class="btn btn-sm">
                 Location <i class="fas fa-map-marker-alt"></i>
               </button>
             </form>

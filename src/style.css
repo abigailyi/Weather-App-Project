@@ -90,12 +90,12 @@ div.search-row {
   background: rgb(97, 199, 199);
 }
 
-#search-button-location {
+#location-button {
   background: rgb(146, 180, 233);
   border-radius: 20px;
 }
 
-#search-button-location:hover {
+#location-button:hover {
   background: rgb(92, 136, 202);
 }
 
