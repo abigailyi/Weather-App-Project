@@ -52,6 +52,9 @@ function replaceLocation(event) {
   let unit = "imperial";
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=${unit}&appid=${key}`;
   axios.get(weatherUrl).then(displayTemp);
+
+  document.getElementById("searchForm").value = ``;
+
   clickCelsius.classList.remove("active");
   clickFahrenheit.classList.add("active");
 }
@@ -59,17 +62,27 @@ function replaceLocation(event) {
 let clickSearch = document.querySelector("#search-button");
 clickSearch.addEventListener("click", replaceLocation);
 
-// Resets search form input
-function submitForm(event) {
-  event.preventDefault();
-
-  document.getElementById("searchForm").value = ``;
+// Fetch GPS position for current location temperatures
+function displayCurrentLocation(position) {
+  console.log(position);
+  let lon = position.coords.longitude;
+  let lat = position.coords.latitude;
+  let key = "1e900e7a532291ddab0851fd797f7887";
+  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=imperial`;
+  axios.get(weatherUrl).then(displayTemp);
+  clickCelsius.classList.remove("active");
+  clickFahrenheit.classList.add("active");
 }
 
-clickSearch.addEventListener("click", submitForm);
+function getLocation() {
+  navigator.geolocation.getCurrentPosition(displayCurrentLocation);
+}
+let clickLocation = document.querySelector("#search-button-location");
+clickLocation.addEventListener("click", getLocation);
 
 // Display current temperature and weather stats
 function displayTemp(response) {
+  console.log(response.data);
   let temp = Math.round(response.data.main.temp);
   let temperatureDisplay = document.querySelector(".current-temp");
 
@@ -148,21 +161,6 @@ clickFahrenheit.addEventListener("click", converttoImperial);
 let clickCelsius = document.querySelector("#celsius");
 clickCelsius.addEventListener("click", converttoMetric);
 
-// Fetch GPS position for current location temperatures
-function displayCurrentLocation(position) {
-  let key = "1e900e7a532291ddab0851fd797f7887";
-  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${key}&units=imperial`;
-  axios.get(weatherUrl).then(displayTemp);
-  clickCelsius.classList.remove("active");
-  clickFahrenheit.classList.add("active");
-}
-
-function getLocation() {
-  navigator.geolocation.getCurrentPosition(displayCurrentLocation);
-}
-let clickCurrent = document.querySelector("#search-button-location");
-clickCurrent.addEventListener("click", getLocation);
-
 // Displays weekly forecast in C
 function dailyForecastMetric(response) {
   let key = "1e900e7a532291ddab0851fd797f7887";
@@ -208,8 +206,9 @@ function formatDay(timestamp) {
 
 // Displays a week forecast
 function displayForecast(response) {
+  console.log(response.data.daily[0]);
   let popElement = document.querySelector(".current-precipitation");
-  let popPercentElement = response.data.daily[0].pop * 100;
+  let popPercentElement = Math.round(response.data.daily[0].pop * 100);
   popElement.innerHTML = `${popPercentElement}`;
   let forecastElement = document.querySelector(".week-forecast-row");
   forecastRow = `<div class="row">`;
@@ -258,10 +257,10 @@ function unitChecker() {
 }
 
 // Defaults weather app with weather from Los Angeles
-function defaultCity(city) {
-  let key = "1e900e7a532291ddab0851fd797f7887";
-  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=imperial`;
-  axios.get(weatherUrl).then(displayTemp);
-}
+let key = "1e900e7a532291ddab0851fd797f7887";
+let city = "Los Angeles";
+let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=imperial`;
 
-defaultCity("Los Angeles");
+axios.get(weatherUrl).then(displayTemp);
+
+replaceLocation("Los Angeles");
