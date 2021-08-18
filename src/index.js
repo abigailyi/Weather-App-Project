@@ -1,8 +1,7 @@
-// theme button
-
+// Light/Dark Mode
 const setMode = (mode) => (document.documentElement.className = mode);
 
-//  get date
+//  Display current date and time
 let now = new Date();
 
 function displayCurrentTime() {
@@ -45,25 +44,32 @@ function displayCurrentTime() {
 }
 displayCurrentTime(now);
 
-// click on search
-
+// Display temperature triggered by search event
 function replaceLocation(event) {
   event.preventDefault();
-  let searchedLocation = document.querySelector(".search-box");
+  let searchInput = document.querySelector(".search-box");
   let key = "1e900e7a532291ddab0851fd797f7887";
   let unit = "imperial";
-  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchedLocation.value}&units=${unit}&appid=${key}`;
-  axios.get(weatherUrl).then(replaceTemp);
-  clickTempC.classList.remove("active");
-  clickTempF.classList.add("active");
+  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=${unit}&appid=${key}`;
+  axios.get(weatherUrl).then(displayTemp);
+  clickCelsius.classList.remove("active");
+  clickFahrenheit.classList.add("active");
 }
 
 let clickSearch = document.querySelector("#search-button");
 clickSearch.addEventListener("click", replaceLocation);
 
-//replace current information
+// Resets search form input
+function submitForm(event) {
+  event.preventDefault();
 
-function replaceTemp(response) {
+  document.getElementById("searchForm").value = ``;
+}
+
+clickSearch.addEventListener("click", submitForm);
+
+// Display current temperature and weather stats
+function displayTemp(response) {
   let temp = Math.round(response.data.main.temp);
   let temperatureDisplay = document.querySelector(".current-temp");
 
@@ -97,13 +103,13 @@ function replaceTemp(response) {
 
   let element = document.querySelector("#celsius");
   if (element.classList.contains("active")) {
-    dailyForecastAPIMetric(response.data.coord);
+    dailyForecastMetric(response.data.coord);
   } else {
-    dailyForecastAPIImperial(response.data.coord);
+    dailyForecastImperial(response.data.coord);
   }
 }
-// click on F or C to change Temp
 
+// Conversion from C to F
 function converttoImperial(event) {
   event.preventDefault();
   let cityDisplayed = document.querySelector(".city-location");
@@ -111,15 +117,16 @@ function converttoImperial(event) {
   let key = "1e900e7a532291ddab0851fd797f7887";
   let unit = "imperial";
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${key}`;
-  axios.get(weatherUrl).then(replaceTemp);
+  axios.get(weatherUrl).then(displayTemp);
 
   let displayWindUnit = document.querySelector(".wind-unit");
   displayWindUnit.innerHTML = `mi/h`;
 
-  clickTempC.classList.remove("active");
-  clickTempF.classList.add("active");
+  clickCelsius.classList.remove("active");
+  clickFahrenheit.classList.add("active");
 }
 
+// Conversion from F to C
 function converttoMetric(event) {
   event.preventDefault();
   let cityDisplayed = document.querySelector(".city-location");
@@ -127,39 +134,37 @@ function converttoMetric(event) {
   let key = "1e900e7a532291ddab0851fd797f7887";
   let unit = "metric";
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${key}`;
-  axios.get(weatherUrl).then(replaceTemp);
+  axios.get(weatherUrl).then(displayTemp);
 
   let displayWindUnit = document.querySelector(".wind-unit");
   displayWindUnit.innerHTML = `m/s`;
-  clickTempC.classList.add("active");
-  clickTempF.classList.remove("active");
+  clickCelsius.classList.add("active");
+  clickFahrenheit.classList.remove("active");
 }
 
-let clickTempF = document.querySelector("#fahrenheit");
-clickTempF.addEventListener("click", converttoImperial);
+let clickFahrenheit = document.querySelector("#fahrenheit");
+clickFahrenheit.addEventListener("click", converttoImperial);
 
-let clickTempC = document.querySelector("#celsius");
-clickTempC.addEventListener("click", converttoMetric);
+let clickCelsius = document.querySelector("#celsius");
+clickCelsius.addEventListener("click", converttoMetric);
 
-// click on current to fetch current locations
-
+// Fetch GPS position for current location temperatures
 function displayCurrentLocation(position) {
   let key = "1e900e7a532291ddab0851fd797f7887";
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${key}&units=imperial`;
-  axios.get(weatherUrl).then(replaceTemp);
-  clickTempC.classList.remove("active");
-  clickTempF.classList.add("active");
+  axios.get(weatherUrl).then(displayTemp);
+  clickCelsius.classList.remove("active");
+  clickFahrenheit.classList.add("active");
 }
 
 function getLocation() {
-  event.preventDefault();
   navigator.geolocation.getCurrentPosition(displayCurrentLocation);
 }
 let clickCurrent = document.querySelector("#search-button-location");
 clickCurrent.addEventListener("click", getLocation);
 
-// forecast the next few days highest + lowest weather in metric + pop + feel_like
-function dailyForecastAPIMetric(response) {
+// Displays weekly forecast in C
+function dailyForecastMetric(response) {
   let key = "1e900e7a532291ddab0851fd797f7887";
   let dailyForcastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=minutely&appid=${key}&units=metric`;
   axios.get(dailyForcastUrl).then(displayForecast);
@@ -168,7 +173,8 @@ function dailyForecastAPIMetric(response) {
   feellikeunit.innerHTML = `°C`;
 }
 
-function dailyForecastAPIImperial(response) {
+// Displays weekly forecast in F
+function dailyForecastImperial(response) {
   let key = "1e900e7a532291ddab0851fd797f7887";
   let dailyForcastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=minutely&appid=${key}&units=imperial`;
   axios.get(dailyForcastUrl).then(displayForecast);
@@ -200,6 +206,7 @@ function formatDay(timestamp) {
   return `${months[month]}  ${dates} <br/><strong> ${days[day]}</strong>`;
 }
 
+// Displays a week forecast
 function displayForecast(response) {
   let popElement = document.querySelector(".current-precipitation");
   let popPercentElement = response.data.daily[0].pop * 100;
@@ -223,7 +230,7 @@ function displayForecast(response) {
       <span class="tempHigh">${Math.round(forecastDays.temp.max)}</span>
       |
       <span class="tempLow">${Math.round(forecastDays.temp.min)}</span>
-      <span class= "dailyUnit"> ${metricOrNot()} </span>
+      <span class= "dailyUnit"> ${unitChecker()} </span>
       </div>
       </div>
       `;
@@ -238,7 +245,8 @@ function displayForecast(response) {
   feelingtemp.innerHTML = `${feelTempRound}`;
 }
 
-function metricOrNot() {
+// Checks which unit of temperature measurement is active to populate a field
+function unitChecker() {
   let element = document.querySelector("#celsius");
   let result;
   if (element.classList.contains("active")) {
@@ -249,12 +257,11 @@ function metricOrNot() {
   return result;
 }
 
-//default: setting default city to Taipei
-
+// Defaults weather app with weather from Los Angeles
 function defaultCity(city) {
   let key = "1e900e7a532291ddab0851fd797f7887";
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=imperial`;
-  axios.get(weatherUrl).then(replaceTemp);
+  axios.get(weatherUrl).then(displayTemp);
 }
 
 defaultCity("Los Angeles");
